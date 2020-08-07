@@ -14,13 +14,22 @@ function App() {
 
     useEffect(() => {
         api.get('/projects').then(response => {
-            // console.log(response);
+            console.log(response);
             setProjects(response.data);
         });
     }, []);
-    function handleAddProject() {
+
+    async function handleAddProject() {
         // projects.push(`New Project ${Date.now()}`);
         setProjects([...projects, `New Project ${Date.now()}`]); // ... spread operator
+
+        // const resp = await api.post('projects', {
+        //     title: `New Project ${Date.now()}`,
+        //     owner: 'vbarros'
+        // });
+
+        // const proj = response.data;
+        // setProjects([...projects, proj]);
     }
 
 
