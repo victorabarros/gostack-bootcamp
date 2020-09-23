@@ -8,7 +8,11 @@ from Rocketseat
 make debug
 npx create-react-app 05-primeiro-projeto-react --template=typescript
 cd 05
-yarn start
+chmod -R 777 .
+rm -rf README.md public/favicon.ico public/logo*.png public/manifest.json src/*.css src/App.test.tsx src/logo.svg src/serviceWorker.ts .gitignore
 yarn add react-router-dom
 yarn add -D @types/react-router-dom
+yarn start
+yarn add styled-components
+yarn add @types/styled-components -D
 ```
