@@ -13,6 +13,15 @@ rm -rf README.md public/favicon.ico public/logo*.png public/manifest.json src/*.
 yarn add react-router-dom
 yarn add -D @types/react-router-dom
 yarn start
+
 yarn add styled-components
 yarn add @types/styled-components -D
+
+yarn add polished
+yarn add react-icons
+
+yarn add axios
 ```
+
+TODO:
+prettify

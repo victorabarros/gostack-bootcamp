@@ -14,3 +14,6 @@ debug:
 	@echo "\e[1m\033[33mDebug mode\e[0m"
 	@docker run -it -v ${PWD}:${APP_DIR} -w ${APP_DIR} \
 		-p 8092:8080 --rm --name ${APP_NAME}-debug ${DOCKER_BASE_IMAGE} bash
+
+ip:
+	@docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' ${APP_NAME}
