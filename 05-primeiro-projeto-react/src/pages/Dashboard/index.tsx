@@ -1,21 +1,31 @@
-import React, { useState } from 'react';
+import React, { useState, FormEvent } from 'react';
 import { FiChevronRight } from 'react-icons/fi';
-// import api from '../../services/api'
+import api from '../../services/api'
 
 import logoImage from '../../assets/logo.svg'
 
 import { Title, Form, Repositories } from './styles';
 
+interface Repository {
+  full_name: string;
+  owner: {
+    login: string;
+    avatar_url: string;
+  }
+  description: string;
+}
+
 const Dashboard: React.FunctionComponent = () => {
   const [newRepo, setNewRepo] = useState('');
-  // const [repositories, setRepositories] = useState([]);
+  const [repositories, setRepositories] = useState<Repository[]>([]);
 
-  function handleAddRepository(): void {
-    console.log(newRepo);
+  async function handleAddRepository(event: FormEvent<HTMLFormElement>): Promise<void> {
+    event.preventDefault();
+    const response = await api.get(`repos/${newRepo}`);
+    const respository = response.data;
 
-    // Add new repo
-    // consume github api fetching repo data
-    // save repo updated
+    setRepositories([...repositories, respository]);
+    setNewRepo('');
   }
 
   return (
@@ -33,16 +43,19 @@ const Dashboard: React.FunctionComponent = () => {
       </Form>
 
       <Repositories>
-        <a href="test">
-          <img src="https://avatars3.githubusercontent.com/u/42843223"
-                alt="victorbarros"/>
+        {repositories.map(repository => (
+        <a key={repository.full_name} href="test">
+          <img
+            src={repository.owner.avatar_url}
+            alt={repository.owner.login}/>
           <div>
-            <strong>Victor Barros</strong>
-            <p>BackEnd Developer</p>
+            <strong>{repository.full_name}</strong>
+            <p>{repository.description}</p>
           </div>
 
           <FiChevronRight size={20} />
         </a>
+        ))}
       </Repositories>
     </>
   );
